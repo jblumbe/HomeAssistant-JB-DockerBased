@@ -1,0 +1,61 @@
+# ONVIF services  for camera PTZ (just a thought...)
+#------------------------------------------------#
+#Notes:
+# 1. Don't use "-" in command names or group names - use "_" instead
+# 2. 
+#
+#------------------------------------------------#
+#  Digoo Camera commands
+#------------------------------------------------#
+#
+#
+#script:
+  onvif_commands_pan_right:
+    sequence:
+      # This is Home Assistant Script Syntax
+      - service: camera.onvif_ptz
+        data:
+          entity_id: camera.digoo_no_1
+          pan: RIGHT
+#
+  onvif_commands_pan_left:
+    sequence:
+      # This is Home Assistant Script Syntax
+      - service: camera.onvif_ptz
+        data:
+          entity_id: camera.digoo_no_1
+          pan: LEFT
+#
+  onvif_commands_tilt_up:
+    sequence:
+      # This is Home Assistant Script Syntax
+      - service: camera.onvif_ptz
+        data:
+          entity_id: camera.digoo_no_1
+          tilt: UP
+#
+  onvif_commands_tilt_down:
+    sequence:
+      # This is Home Assistant Script Syntax
+      - service: camera.onvif_ptz
+        data:
+          entity_id: camera.digoo_no_1
+          tilt: DOWN
+#
+  onvif_commands_zoom_in:
+    sequence:
+      # This is Home Assistant Script Syntax
+      - service: camera.onvif_ptz
+        data:
+          entity_id: camera.digoo_no_1
+          zoom: IN
+#
+  onvif_commands_zoom_out:
+    sequence:
+      # This is Home Assistant Script Syntax
+      - service: camera.onvif_ptz
+        data:
+          entity_id: camera.digoo_no_1
+          zoom: OUT
+##
+#

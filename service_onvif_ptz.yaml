@@ -1,0 +1,58 @@
+﻿# ONVIF commands for camera PTZ (just a thought...)
+#------------------------------------------------#
+#Notes:
+# 1. Don't use "-" in command names or group names - use "_" instead
+# 2. 
+#
+#------------------------------------------------#
+#  Digoo Camera commands
+#------------------------------------------------#
+#
+#
+#
+# Tilt NONE
+      onvif_tilt_none_button:
+        friendly_name: "Camera_Tilt_None" 
+        command_on: '=='#
+# Tilt UP
+      onvif_tilt_up_button:
+        friendly_name: "Camera_Tilt_Up" 
+        command_on: '=='
+#
+# Tilt DOWN
+      onvif_tilt_down_button:
+        friendly_name: "Camera_Tilt_Down"
+        command_on: '=='
+#
+# Pan NONE
+      onvif_pan_none_button:
+        friendly_name: "Camera_Pan_None"
+        command_on: '=='
+#
+# Pan RIGHT
+      onvif_pan_right_button:
+        friendly_name: "Camera_Pan_Right"
+        command_on: '=='
+#
+# Pan LEFT
+      onvif_pan_left_button:
+        friendly_name: "Camera_Pan_Left"
+        command_on: '=='
+#
+#
+# Zoom NONE
+      onvif_zoom_none_button:
+        friendly_name: "Camera_Zoom_None" 
+        command_on: '=='#
+#
+# Zoom IN
+      onvif_zoom_in_button:
+        friendly_name: "Camera_Zoom_In" 
+        command_on: '=='
+#
+#
+# Zoom OUT
+      onvif_zoom_out_button:
+        friendly_name: "Camera_Zoom_Out" 
+        command_on: '=='
+#

@@ -1,0 +1,403 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: JB_Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret jb_home_latitude 
+  longitude: !secret jb_home_longitude 
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Asia/Jerusalem
+  # Customization file
+  customize: !include customize.yaml
+#
+#
+system_health:   # Added on 2019-06-16 -  ver. 0.94.2
+#
+#
+zone:
+  - name: JB_Home_zone
+    latitude: !secret jb_home_latitude
+    longitude: !secret jb_home_longitude
+    radius: 200
+    icon: mdi:home
+
+####
+# ------------------------------------
+# Included files
+# Moved this here 
+# ------------------------------------
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+# ------------------------------------
+# 
+# Show links to resources in log and frontend
+#introduction:
+# The above "introduction:" statement was commented out for not showing on system startup...
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+http:
+#   base_url: jblumbe-ha.duckdns.org:8123
+  api_password: !secret http_password
+  ip_ban_enabled: True
+  login_attempts_threshold: 10
+# ****************************
+#
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Sensors
+sensor:
+  # Weather prediction
+  - platform: yr
+
+# Text to speech
+tts:
+  - platform: google_translate
+    service_name: google_say
+
+# Cloud
+cloud:
+
+# FFMPEG 
+ffmpeg:
+  ffmpeg_bin: /usr/bin/ffmpeg
+
+#HA Configurator setup
+#---------------------------Dec. 2018
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: http://jblumbe-ha.duckdns.org:3218
+# 2018-12-08 was url: http://0.0.0.0:3218 
+# ------------------------------------------------------------
+# only worked internally, then forwarded port 3218 in the main Router and in MI-3 
+ #Need to strengthen access to the configurator from outside
+
+#
+# ------------------------------------
+# Google Home Bluetooth Tracker
+# ---- Added on 9-Feb-2019 -----------
+# ------------------------------------ 
+###device_tracker:
+###  - platform: googlehome
+###    host: 192.168.111.103 
+###    threshold: -75
+###    interval_seconds: 20
+###    consider_home: 180
+###    new_device_defaults:
+###      track_new_devices: false
+###      hide_if_away: true
+# ------------------------------------ 
+
+# ----------------------- 25-Dec-2018 -----------
+#
+# mosquitto definitions- MQTT setup
+# ------------------------------------
+mqtt:
+  broker: 192.168.112.154
+  username: yossi
+  password: !secret mqtt_password
+#------------------------
+#
+# ------------------------------------
+# IFTTT Integration 
+# ------------------------------------
+ifttt:
+  key: !secret ifttt-key     # See secrets.yaml file for the key
+#
+# ------------------------------------
+# Switches
+# ------------------------------------
+switch:
+# First switch
+# IP:192.168.112.172
+  - platform: mqtt
+    name: "Sonoff Simple switch No1"
+    command_topic: "sonoff-g01-s01/cmnd/POWER"
+    state_topic: "sonoff-g01-s01/stat/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+# ------------------------------------
+# Second switch
+# IP:192.168.112.119
+  - platform: mqtt
+    name: "SonOff POW switch No1"
+    command_topic: "sonoff-g01-POW01/cmnd/POWER"
+    state_topic: "sonoff-g01-POW01/stat/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+#    payload_toggle: "TOGGLE"
+# ------------------------------------
+# Third switch - Sonoff S20 
+# IP:192.168.112.171
+  - platform: mqtt
+    name: "Sonoff Wall socket switch No1"
+    command_topic: "sonoff-S20-01/cmnd/POWER"
+    state_topic: "sonoff-S20-01/stat/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+#    payload_toggle: "TOGGLE"
+# ------------------------------------
+# Fourth switch - Sonoff T1 Euro - 2 gang - switch#1
+# IP:192.168.112.152
+  - platform: mqtt
+    name: "Sonoff 2-Gang-wall light switch No1-sw1"
+    # entity: switch.sonoff_2_gang_wall_light_switch_no1_sw1
+    command_topic: "sonoff-T1-01/cmnd/POWER1"
+    state_topic: "sonoff-T1-01/stat/POWER1"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+#    payload_toggle: "TOGGLE"
+# ------------------------------------
+# Fifth switch - Sonoff T1 Euro - 2 gang - switch#2
+# IP:192.168.112.152
+  - platform: mqtt
+    name: "Sonoff 2-Gang-wall light switch No1-sw2"   
+    # entity: switch.sonoff_2_gang_wall_light_switch_no1_sw2
+    command_topic: "sonoff-T1-01/cmnd/POWER2"
+    state_topic: "sonoff-T1-01/stat/POWER2"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+#    payload_toggle: "TOGGLE"
+# ------------------------------------
+# Sonoff RF Bridge 01 switches, emulating Remote 01 (Black)
+# These are used for sending out RF commands from the RF Bridge
+# IP:192.168.112.170
+# ------------------------------------
+  - platform: mqtt
+    name: "RF_Bridge01 Remt01_BtnA"
+    command_topic: "RF_Bridge_01/cmnd/RfCode"
+    state_topic: "RF_Bridge_01/tele/RESULT"
+    qos: 1
+    payload_on: "#39CE94"
+#    payload_off: "#39CE94"
+#    payload_toggle: "#39CE94"
+    retain: false
+#
+# ------------------------------------
+  - platform: mqtt
+    name: "RF_Bridge01 Remt01_BtnB"
+    command_topic: "RF_Bridge_01/cmnd/RfCode"
+    state_topic: "RF_Bridge_01/tele/RESULT"
+    qos: 1
+    payload_on: "#39CE98"
+#    payload_off: "#39CE98"
+#    payload_toggle: "#39CE98"
+    retain: false
+#    
+# ------------------------------------
+  - platform: mqtt
+    name: "RF_Bridge01 Remt01_BtnBD"
+    command_topic: "RF_Bridge_01/cmnd/RfCode"
+    state_topic: "RF_Bridge_01/tele/RESULT"
+    qos: 1
+    payload_on: "#39CE9A"
+#    payload_off: "#39CE9A"
+#    payload_toggle: "#39CE9A"
+    retain: false
+#    
+# ------------------------------------
+  - platform: mqtt
+    name: "RF_Bridge01 Remt01_BtnC"
+    command_topic: "RF_Bridge_01/cmnd/RfCode"
+    state_topic: "RF_Bridge_01/tele/RESULT"
+    qos: 1
+    payload_on: "#39CE91"
+#    payload_off: "#39CE91"
+#    payload_toggle: "#39CE91"
+    retain: false
+#
+# ------------------------------------
+  - platform: mqtt
+    name: "RF_Bridge01 Remt01_BtnD"
+    command_topic: "RF_Bridge_01/cmnd/RfCode"
+    state_topic: "RF_Bridge_01/stat/RESULT"
+    qos: 1
+    payload_on: "#39CE92"
+#    payload_off: "#39CE92"
+#    payload_toggle: "#39CE92"
+    retain: false
+#    
+# ------------------------------------
+# Broadlink mini remote RM-mini3 IR No. 1
+# IP:192.168.112.125
+# ------------------------------------
+  - platform: broadlink
+    host: 192.168.112.125
+    mac: '34:ea:34:42:a4:dc'
+    type: rm_mini
+    timeout: 15
+    switches: !include ir_cmnd_broadlink.yaml
+# moved all IR commands (switches) to a separate file -> ir_cmnd_broadlink.yaml
+#
+# ------------------------------------
+# Controlling media devices via LAN 
+# ------------------------------------
+media_player:
+# Harman Kardon Receiver AVR 151S
+# IP:192.168.111.114
+  - platform: harman_kardon_avr
+    host: 192.168.111.114
+    name: Harman Kardon AVR 151S
+# LG WebOS TV
+# IP:192.168.111.112
+  - platform: webostv
+    host: 192.168.111.112
+    name: LG OLED65 TV - Salon
+    filename: webostv.conf
+    timeout: 5
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet  # doesn't seem to work
+      data:
+        mac: "38-8C-50-D5-F5-12"      # the TV's MAC address
+#      service: persistent_notification.create  # another way to turn the TV on remotely - doesn't work as well
+#      data:
+#        message: "Turn on action"
+    customize:
+      sources:
+        - ערוצי עידן +
+        - youtube
+        - makotv
+        - netflix
+#
+# ------------------------------------
+# CAMERA 
+# ------------------------------------
+#
+camera:
+# Digoo camera
+# IP:192.168.111.106 for Dlink router Wifi, 192.168.112.108 for Xiaomi Mi-3 Router Wifi
+  - platform: onvif
+    host: 192.168.112.108
+    name: Digoo_no.1
+    username: admin
+    password: !secret digoo1_password 
+    port: 554  #was 5000
+    service: CAMERA.ONVIF_PTZ
+    entity: camera.digoo_no_1   # changed from entity: camera.digoo_no1
+# --------------------------------------
+#
+#  - platform: generic
+#    input: rtsp://192.168.112.108/onvif1  # for ffmpeg cameras
+#    still_image_url: /home/yossi/homeassistant/lib/python3.6/site-packages/homeassistant/components/demo/demo_3.jpg  # for generic cameras
+#    stream_source: rtsp://admin:jb3442jb3442@192.168.112.108:554/onvif1
+#    stream_source: rtsp://192.168.112.108:554/onvif1
+#    name: Digoo_no.3
+#    username: admin
+#    password: !secret digoo1_password 
+#---- This (above) didn't work after upgrading to HA 0.94 ......
+#  
+# -----------------------------------------
+#  - platform: generic
+#    input: rtsp://192.168.111.106/onvif1  # for ffmpeg cameras
+#    still_image_url: rtsp://192.168.111.106/onvif1  # for generic cameras
+#    name: Digoo no.2
+#    username: admin
+#    password: !secret digoo1_password 
+#    port: 554
+#    service: CAMERA.ONVIF_PTZ
+#    entity: camera.digoo_no2
+#
+# ------------------------------------
+# SonOff RF Bridge as binary_sensor (for receiving RF commands)
+# Using it for transmitting RF commands is done by definition as a switch
+# IP:192.168.111.170
+# ------------------------------------
+binary_sensor:
+    - platform: mqtt
+      state_topic: "RF_Bridge_01/tele/RESULT"
+      name: "But_A Remt01 Pressed" #Remote 01 is the Sonoff RF switch remote
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: '39CE94'
+#      payload_off: '39CE94off'  #Doesn't turn off - only with off_delay
+      off_delay: 5
+      device_class: light
+      qos: 1
+#------------------------
+    - platform: mqtt
+      state_topic: "RF_Bridge_01/tele/RESULT"
+      name: "But_BD Remt01 Pressed" #Remote 01 is the Sonoff RF switch remote
+      # BD button is the combination of simultaneous buttons B & D
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: '39CE9A'
+#      payload_off: '39CE9Aoff' #Doesn't turn off - only with off_delay
+      device_class: light
+      off_delay: 10
+      qos: 1
+#------------------------
+    - platform: mqtt
+      name: "But_B Remt01 Pressed" #Remote 01 is the Sonoff RF switch remote
+      state_topic: "RF_Bridge_01/tele/RESULT"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "39CE98"
+#      payload_off: "39CE98off" #Doesn't turn off - only with off_delay
+      off_delay: 5
+      device_class: light
+      qos: 1
+#--------------------------
+    - platform: mqtt
+      name: "But_C Remt01 Pressed" #Remote 01 is the Sonoff RF switch remote
+      state_topic: "RF_Bridge_01/tele/RESULT"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "39CE91"
+#      payload_off: "39CE91off" #Doesn't turn off - only with off_delay
+      off_delay: 5
+      device_class: power
+      qos: 1
+#-----------------------------
+    - platform: mqtt
+      name: "But_D Remt01 Pressed" #Remote 01 is the Sonoff RF switch remote
+      state_topic: "RF_Bridge_01/tele/RESULT"
+      value_template: '{{value_json.RfReceived.Data}}'
+      payload_on: "39CE92"
+#      payload_off: "39CE92off"  #Doesn't turn off - only with off_delay
+      off_delay: 5
+      device_class: lock
+      qos: 1
+#=================================================
+#

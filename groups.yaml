@@ -1,0 +1,146 @@
+#------------------------------------------------#
+#Notes:
+# 1. Don't use "-" in command names or group names - use "_" instead
+# 2. 
+#
+#------------------------------------------------#
+#
+# *************************************
+# --------- Groups ----------
+#  Groups are defined here
+# *************************************
+#
+#
+#First group
+#---------------------
+  All_my_Switches:
+    name: All switches
+    entities:
+      - switch.sonoff_wall_socket_switch_no1
+      - switch.sonoff_simple_switch_no1
+      - switch.sonoff_pow_switch_no1
+      - switch.sonoff_2_gang_wall_light_switch_no1_sw1
+      - switch.sonoff_2_gang_wall_light_switch_no1_sw2
+
+
+#Second group
+#---------------------
+  T1_Wall_Switches:
+    name: T1 wall switches
+    entities:
+      - switch.sonoff_2_gang_wall_light_switch_no1_sw1
+      - switch.sonoff_2_gang_wall_light_switch_no1_sw2
+
+#Broadlink - LG TV group
+#---------------------
+  LG_TV_Switches:
+    name: LG TV IR Remote
+    entities:
+      - switch.lg_tv_power
+      - switch.lg_tv_volume
+      - switch.lg_tv_channel
+      - switch.lg_tv_recents
+      - switch.lg_tv_mute
+      - switch.lg_tv_input_select
+      - switch.lg_tv_up_button
+      - switch.lg_tv_down_button
+      - switch.lg_tv_right_button
+      - switch.lg_tv_left_button
+      - switch.lg_tv_netflix
+      - switch.lg_tv_settings
+#
+#Broadlink - HK AVR-151S group
+#------------------------
+  HK_AVR_151_Switches:
+    name: Harman-Kardon Receiver Remote (IR)
+    entities:
+      - switch.hk_receiver_avr151s_poweron
+      - switch.hk_receiver_avr151s_poweroff
+      - switch.hk_receiver_avr151s_mute
+      - switch.hk_receiver_avr151s_input_cable
+      - switch.hk_receiver_avr151s_input_server
+      - switch.hk_receiver_avr151s_input_aux
+      - switch.hk_receiver_avr151s_input_audio
+      - switch.hk_receiver_avr151s_input_game
+      - switch.hk_receiver_avr151s_input_avr
+      - switch.hk_receiver_avr151s_input_usb
+      - switch.hk_receiver_avr151s_input_network
+      - switch.hk_receiver_avr151s_input_radio
+      - switch.hk_receiver_avr151s_input_stb
+      - switch.hk_receiver_avr151s_input_tv
+      - switch.hk_receiver_avr151s_input_disc
+      - switch.hk_receiver_avr151s_surrmode
+      - switch.hk_receiver_avr151s_osdmenu
+      - switch.hk_receiver_avr151s_up
+      - switch.hk_receiver_avr151s_down
+      - switch.hk_receiver_avr151s_left
+      - switch.hk_receiver_avr151s_right
+      - switch.hk_receiver_avr151s_ok
+      - switch.hk_receiver_avr151s_backexit
+      - switch.hk_receiver_avr151s_infooption
+      - switch.hk_receiver_avr151s_volup
+      - switch.hk_receiver_avr151s_voldown
+      - switch.hk_receiver_avr151s_chup
+      - switch.hk_receiver_avr151s_chdown
+      - switch.hk_receiver_avr151s_prevch
+      - switch.hk_receiver_avr151s_dig1
+      - switch.hk_receiver_avr151s_dig2
+      - switch.hk_receiver_avr151s_dig3
+      - switch.hk_receiver_avr151s_dig4
+      - switch.hk_receiver_avr151s_dig5
+      - switch.hk_receiver_avr151s_dig6
+      - switch.hk_receiver_avr151s_dig7
+      - switch.hk_receiver_avr151s_dig8
+      - switch.hk_receiver_avr151s_dig9
+      - switch.hk_receiver_avr151s_dig0
+      - switch.hk_receiver_avr151s_clear
+      - switch.hk_receiver_avr151s_test
+      - switch.hk_receiver_avr151s_direct
+
+#
+# Digoo Cameras group
+#---------------------
+  Digoo_cameras:
+    name: Digoo Camera No1
+    entities:
+      - camera.digoo_no_1
+      - script.onvif_commands_pan_left
+      - script.onvif_commands_pan_right
+      - script.onvif_commands_tilt_up
+      - script.onvif_commands_tilt_down
+#--------------------------
+#
+# *************************************
+# --------- Views ----------
+#  Views are defined here
+# *************************************
+#
+  All_T1_Switches_View:
+    name: Wall Switches
+    view: yes
+    entities:
+      - group.t1_wall_switches
+#
+# ------------------------------------------
+  All_LG_TV_IR_Switches_View:
+    name: LG TV IR Remote
+    view: yes
+    entities:
+      - group.lg_tv_switches
+#
+# ------------------------------------------
+  All_HK_AVR151_IR_Switches_View:
+    name: HK AVR151 Receiver IR Remote
+    view: yes
+    entities:
+      - group.hk_avr_151_switches
+#
+# ------------------------------------------
+  All_Cameras_View:
+    name: All Cameras
+    view: yes
+    entities:
+      - group.digoo_cameras
+#
+# ------------------------------------------
+#

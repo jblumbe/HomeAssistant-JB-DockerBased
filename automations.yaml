@@ -1,0 +1,67 @@
+# -------------------------------------------------
+# MQTT auto-discovery Integration
+# Example automations.yaml entry to make all MQTT devices auto discovery
+# Added on ???
+# -------------------------------------------------
+  - alias: "Enable MQTT discovery for all devices"
+    trigger:
+      platform: homeassistant
+      event: start
+    action:
+      - service: mqtt.publish
+        data:
+          topic: "cmnd/sonoffs/SetOption19"
+          payload: "1"
+#       
+# -------------------------------------------------
+# IFTTT Integration
+# Added on 2019-02-12 - 14:30
+# -------------------------------------------------
+  - alias: "IFTTT Webhooks"
+    trigger:
+      platform: event
+      event_type: ifttt_webhook_received
+      event_data:
+        action: call_service
+    action:
+      service_template: '{{ trigger.event.data.service }}'
+      data_template:
+        entity_id: '{{ trigger.event.data.entity_id }}'
+#
+# -------------------------------
+# Automations for RF Sensors 
+# Added on 2019-02-02  
+# -------------------------------------------------
+  - alias: 'RF Remote 01 key C pressed - Toggle the S20 socket'
+    hide_entity: false
+    trigger:
+    - platform: state
+      entity_id: binary_sensor.remt01_button_c
+      from: 'off'
+      to: 'on'
+#     for: '00:00:05'
+    action:
+    - service: switch.toggle
+      data:
+        entity_id: switch.sonoff_wall_socket_switch_no1
+        message: "Toggle the wall socket switch no.1"
+#
+#
+  - alias: 'RF Remote 01 key D pressed - Toggle the wall T1 switch - right (No.2)'
+    hide_entity: false
+    trigger:
+    - platform: state
+      entity_id: binary_sensor.remt01_button_bd
+      from: 'off'
+      to: 'on'
+#     for: '00:00:03'
+    action:
+      - service: notify.notify
+        data:
+          message: "Button D pressed!!!!!!!!!!!!!!"
+##    - service: switch.toggle
+##      data:
+##        entity_id: switch.sonoff_2gangwall_light_switch_no1sw2
+#        message: "Toggled the 2-gang lights switch no.2"
+#
+#

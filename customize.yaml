@@ -1,0 +1,44 @@
+switch.sonoff_2gangwall_light_switch_no1sw1:
+  friendly_name: Wall switch 01 - Left
+  hidden: false
+  icon: mdi:set-left
+switch.sonoff_2gangwall_light_switch_no1sw2:
+  friendly_name: Wall switch 01 - Right
+  hidden: false
+  icon: mdi:set-right
+switch.sonoff_pow_switch_no1:
+  friendly_name: POW switch 01
+  hidden: false
+  icon: mdi:flash-circle
+switch.sonoff_simple_switch_no1:
+  friendly_name: Simple switch 01 - Lamp
+  hidden: false
+switch.sonoff_wall_socket_switch_no1:
+  friendly_name: Socket switch 01
+  hidden: false
+  icon: mdi:power-socket-eu
+switch.lg_tv_power:
+  icon: mdi:power-cycle
+switch.lg_tv_volume:
+  icon: mdi:volume-high
+switch.lg_tv_channel:
+  icon: mdi:unfold-more-horizontal
+switch.lg_tv_mute:
+  icon: mdi:volume-mute
+switch.lg_tv_up_button:
+  icon: mdi:arrow-up-thick
+switch.lg_tv_down_button:
+  icon: mdi:arrow-down-thick
+switch.lg_tv_right_button:
+  icon: mdi:arrow-right-thick
+switch.lg_tv_left_button:
+  icon: mdi:arrow-left-thick
+sensor.xiaomi_mi_mini_wireless_router_packets_sec_received:
+  hidden: true
+sensor.xiaomi_mi_mini_wireless_router_packets_sec_sent:
+  hidden: true
+sensor.xiaomi_mi_mini_wireless_router_bytes_received:
+  hidden: true
+sensor.xiaomi_mi_mini_wireless_router_bytes_sent:
+  hidden: true
+group.all_my_switches: {}
